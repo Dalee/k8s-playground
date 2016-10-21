@@ -6,10 +6,12 @@ metadata:
     app: hello-world
 spec:
   type: NodePort
+  externalIPs:
+    - 192.168.50.2
   ports:
-  - port: 3000
-    targetPort: 8000
-    protocol: TCP
+    - port: 3000
+      targetPort: 8000
+      protocol: TCP
   selector:
     app: hello-world
 ---

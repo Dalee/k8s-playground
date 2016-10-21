@@ -1,6 +1,7 @@
 # Kubernetes
 
 Список чтения
+ * https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes
  * http://kubernetes.io/docs/getting-started-guides/kubeadm/
  * https://github.com/kubernetes/kubernetes/issues/34101
  * http://www.devoperandi.com/load-balancing-in-kubernetes/
