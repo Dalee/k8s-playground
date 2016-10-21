@@ -22,6 +22,10 @@ docker push 192.168.50.2:5000/sample/hello-world:${VERSION}
 ## Публикуем приложение
 `kubectl create -f ./app.manifest.yml`
 
+## Посмотреть на приложение
+
+http://192.168.50.2:3000/
+
 ## Удаляем приложение
 `kubectl delete pod,service,deployment -l app=hello-world`
 
