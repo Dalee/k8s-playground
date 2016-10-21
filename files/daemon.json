@@ -1,0 +1,9 @@
+{
+  "insecure-registries": [
+    "192.168.50.2:5000"
+  ],
+  "hosts": [
+    "unix:///var/run/docker.sock",
+    "tcp://0.0.0.0:2373"
+  ]
+}

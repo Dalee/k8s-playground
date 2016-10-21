@@ -1,17 +1,24 @@
 # Kubernetes
 
-Базовый гайд: http://kubernetes.io/docs/getting-started-guides/kubeadm/
-
-Vagrant: https://github.com/kubernetes/kubernetes/issues/34101
-
-Сделать иденмподентым kubernetes очень сложно, поэтому
-в данном случае, для демонстрации просто необходимо
-выполнить несколько команд.
+Список чтения
+ * http://kubernetes.io/docs/getting-started-guides/kubeadm/
+ * https://github.com/kubernetes/kubernetes/issues/34101
+ * http://www.devoperandi.com/load-balancing-in-kubernetes/
 
 Поднимаем наш кластер:
 ```
 $ vagrant up
 ```
+
+Появление в логе ошибки вида:
+```
+==> master: mesg:
+==> master: ttyname failed
+==> master: :
+==> master: Inappropriate ioctl for device
+==> master: OK
+```
+Это нормально, так и должно быть.
 
 
 ## Инициализация кластера
@@ -124,7 +131,8 @@ daemonset "weave-net" created
 ```
 
 В зависимости от производительности сети, загрузка образов занимает какое-то
-время, поэтому необходимо подождать пару минут прежде чем кластер соберется.
+время, поэтому необходимо подождать несколько минут прежде чем кластер 
+соберется.
 
 Убеждаемся что кластер функционирует:
 ```
@@ -168,3 +176,13 @@ $ sudo su -
 ```
 
 И бразуером перейти на http://192.168.50.2:9090/ui/
+
+## Registry
+
+На мастер ноде запустить:
+```
+$ cd /vagrant
+$ sudo ./vagrant-setup-registry.sh
+```
+
+## Можно тестировать

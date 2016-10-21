@@ -1,0 +1,4 @@
+
+export DOCKER_HOST="127.0.0.1:2373"
+export EDITOR="nano"
+export LANG="en_US.UTF-8"
