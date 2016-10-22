@@ -1,35 +1,31 @@
-# 
+# Тестовое приложение
+
+Node.JS echo-сервер.
 
 ## Собираем приложение
 ```
-# ./build.sh <build-number>
+# ./build.sh [build-number]
 ```
 
-Скрипт сборки:
-```
-#!/usr/bin/env bash
+где, build-number - любое число. Если не указано, используется значение 1.
 
-VERSION=$1
-if [ -z "${VERSION}" ]; then
-    VERSION=1
-fi
+Результатом сборки будет Docker image со следующими тэгами
 
-docker build -t hello-world:${VERSION} .
-docker tag hello-world:${VERSION} 192.168.50.2:5000/sample/hello-world:${VERSION}
-docker push 192.168.50.2:5000/sample/hello-world:${VERSION}
-```
+ * hello-world:<build-number> 
+ * 192.168.50.2:5000/sample/hello-world:<build-number>
 
-## Публикуем приложение
+Тэг `192.168.50.2:5000/sample/hello-world:<build-number>` будет отправлен в Registry.
+
+## Первоначальная публикация приложения
+
 `kubectl create -f ./app.manifest.yml`
 
-## Посмотреть на приложение
+## Доступ к приложению
 
 http://192.168.50.2:3000/
 
-## Удаляем приложение
-`kubectl delete pod,service,deployment -l app=hello-world`
+## Подключение к pod приложения
 
-## Подключение к pod-у (без ssh)
 ```
 # kubectl get pods
 NAME                                     READY     STATUS    RESTARTS   AGE
@@ -37,21 +33,14 @@ hello-world-deployment-700434906-5kfkm   1/1       Running   0          7m
 hello-world-deployment-700434906-ocxim   1/1       Running   0          8m
 
 # kubectl exec -ti hello-world-deployment-700434906-5kfkm /bin/sh
-/ # cat /app/index.js
-'use strict';
-
-const http = require('http');
-
-// Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer((request, response) => {
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World\n");
-});
-
-server.listen(8000);
-console.log("Server running at http://127.0.0.1:8000/");
-/ #
-
+# uname -a
+Linux hello-world-deployment-700434906-5kfkm 4.4.0-45-generic #66-Ubuntu SMP Wed Oct 19 14:12:37 UTC 2016 x86_64 GNU/Linux
+# ps uax
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  2.7 907548 27736 ?        Ssl  05:08   0:08 node /app/index.js
+root        12  0.0  0.0   4336   712 ?        Ss   08:32   0:00 /bin/sh
+root        22  0.0  0.1  17500  1996 ?        R+   08:33   0:00 ps uax
+#
 ```
 
 ## Выкатываем новую версию
@@ -65,3 +54,7 @@ console.log("Server running at http://127.0.0.1:8000/");
 ```
 # kubectl rollout undo deployment/hello-world-deployment
 ```
+
+## Удаление приложения
+
+`kubectl delete pod,service,deployment -l app=hello-world`
