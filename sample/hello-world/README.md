@@ -11,8 +11,8 @@ Node.JS echo-сервер.
 
 Результатом сборки будет Docker image со следующими тэгами
 
- * hello-world:<build-number> 
- * 192.168.50.2:5000/sample/hello-world:<build-number>
+ * hello-world:&lt;build-number&gt; 
+ * 192.168.50.2:5000/sample/hello-world:&lt;build-number&gt;
 
 Тэг `192.168.50.2:5000/sample/hello-world:<build-number>` будет отправлен в Registry.
 
